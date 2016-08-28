@@ -7,8 +7,10 @@ var restRouter = require('./routes/rest');
 var redirectRouter = require('./routes/redirect');
 var indexRouter = require('./routes/index');
 
-app.longToShortHash = {};
-app.shortToLongHash = {};
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://user:user@ds013486.mlab.com:13486/tinyurl_sy');
+
 
 app.use('/public', express.static(__dirname + "/public"));
 
