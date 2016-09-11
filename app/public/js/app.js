@@ -8,7 +8,7 @@ var app = angular.module('tinyurlApp', ['ngRoute', 'ngResource', 'chart.js']);
 app.factory('loginInfo', function(){
     return {
         username : '',
-        status : false,
+        status : "unlogin",
         urls:{}
     };
 });

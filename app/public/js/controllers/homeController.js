@@ -16,9 +16,7 @@ app.controller("homeController",
                         url.shortUrlToShow = "http://localhost/" + url.shortUrl;
                     });
                 }
-
                 $scope.userInfo.urls = data.urls;
-
             });
 
 
@@ -28,7 +26,6 @@ app.controller("homeController",
                     username: $scope.userInfo.username
                 })
                 .success(function (data) {
-
                     $location.path("/urls/" + data.shortUrl);
                 });
 
