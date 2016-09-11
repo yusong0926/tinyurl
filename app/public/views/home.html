@@ -9,3 +9,23 @@
         </form>
     </div>
 </div>
+
+<div class="row" ng-if ="userInfo.status === 'login'">
+    <div class="col-md-8 col-md-offset-2">
+            <h2>urls shortened by {{userInfo.username}}</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>longUrl</th>
+                    <th>shortUrl</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="url in userInfo.urls">
+                <tr>
+                    <td><a ng-href="{{url.longUrl}}" target="_blank">{{url.longUrl}}</a></td>
+                    <td><a ng-href="{{url.shortUrlToShow}}" target="_blank">{{url.shortUrlToShow}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

@@ -7,19 +7,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
+    <script src="/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="/public/js/app.js"></script>
     <script src="/public/js/controllers/homeController.js"></script>
     <script src="/public/js/controllers/urlController.js"></script>
+    <script src="/public/js/controllers/registerController.js"></script>
+    <script src="/public/js/controllers/loginController.js"></script>
+    <script src="/public/js/controllers/logoutController.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body ng-app="tinyurlApp">
 <header>
-    <div class="container">
+    <div class="container" ng-controller = "homeController">
         <div class="navbar navbar-default">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/">TinyUrl</a>
+                <ul class="nav navbar-nav navbar-right" ng-if ="userInfo.username === ''">
+                    <li><a href="#/registration"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if ="userInfo.username !== ''">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{userInfo.username}}</a></li>
+                    <li ng-controller = "logoutController"><a href="" ng-click ="logout()"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+                </ul>
             </div>
+
         </div>
     </div>
 </header>

@@ -22,7 +22,7 @@ encode = encode.concat(genCharArray('A', 'Z'));
 encode = encode.concat(genCharArray('0', '9'));
 encode = encode.concat(genCharArray('a', 'z'));
 
-var getShortUrl = function (longUrl, callback) {
+var getShortUrl = function (longUrl, username, callback) {
     if ( longUrl.indexOf('http') === -1 ) {
         longUrl = "http://" + longUrl;
     }
@@ -40,7 +40,8 @@ var getShortUrl = function (longUrl, callback) {
                     callback(url);
                 } else {
                     generateShortUrl(function (shortUrl) {
-                        var url = new UrlModel({ shortUrl: shortUrl, longUrl: longUrl});
+                        console.log(username);
+                        var url = new UrlModel({ shortUrl: shortUrl, longUrl: longUrl, username: username});
                         url.save();
                         redisClient.set(shortUrl, longUrl);
                         redisClient.set(longUrl, shortUrl);
@@ -71,7 +72,6 @@ var convertTo62 = function (num) {
 var getLongUrl = function (shortUrl, callback) {
     redisClient.get(shortUrl, function (err, longUrl) {
         if (longUrl) {
-            console.log("byebye mongodb");
             callback({
                 longUrl: longUrl,
                 shortUrl: shortUrl
@@ -84,7 +84,18 @@ var getLongUrl = function (shortUrl, callback) {
     });
 };
 
+var preLoadUrl = function () {
+    UrlModel.find({}, function(err, urls) {
+        urls.forEach(function(url){
+            redisClient.set(url.shortUrl, url.longUrl);
+            redisClient.set(url.longUrl, url.shortUrl);
+        });
+    });
+}
+
+
 module.exports = {
     getShortUrl: getShortUrl,
-    getLongUrl: getLongUrl
+    getLongUrl: getLongUrl,
+    preLoadUrl: preLoadUrl
 };

@@ -5,8 +5,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UrlSchema = new Schema({
+    shortUrl: String,
     longUrl: String,
-    shortUrl: String
+    username: String,
 });
 
 var urlModel = mongoose.model('urlModel', UrlSchema);
